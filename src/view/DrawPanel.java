@@ -61,6 +61,15 @@ public class DrawPanel extends JPanel {
 
     public void paintwithcolorlines(Graphics2D G2D, int i){
         int k = listoffood.get(i);
+        int death=0;
+
+        if(death==0)
+            G2D.fillRect(146+i*50,90,20,20);
+
+        G2D.drawLine(146+i*50,90,165+i*50,90);
+        G2D.drawLine(146+i*50,90,146+i*50,110);
+        G2D.drawLine(165+i*50,90,165+i*50,110);
+        G2D.drawLine(146+i*50,109,165+i*50,109);
         if(k>=85) {
             G2D.setColor(Color.green.darker().darker());
             paintwithlines(G2D, i);
