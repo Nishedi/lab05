@@ -30,12 +30,14 @@ public class AppFrame extends JFrame{
     ArrayList<Integer> possitionlist;
     ArrayList<Integer> workerfoodlist;
     public ArrayList<WorkerThread> workerThreadslist;
+    ArrayList<Integer> stamina;
 
-    public AppFrame(ArrayList<Integer> listoffood, ArrayList<Integer> possitionlist, ArrayList<Integer> workerfoodlist, ArrayList<WorkerThread> workerThreadslist){
+    public AppFrame(ArrayList<Integer> listoffood, ArrayList<Integer> possitionlist, ArrayList<Integer> workerfoodlist, ArrayList<WorkerThread> workerThreadslist, ArrayList<Integer> stamina){
         this.listoffood = listoffood;
         this.possitionlist = possitionlist;
         this.workerfoodlist = workerfoodlist;
         this.workerThreadslist=workerThreadslist;
+        this.stamina=stamina;
         editpanel = new JPanel();
         removeworker=new JButton();
         removeworker.setText("removeworker");
@@ -55,7 +57,7 @@ public class AppFrame extends JFrame{
         //list=new JList<>();
         butn = new JButton();
 
-        simulationpanel = new DrawPanel(listoffood, possitionlist, workerfoodlist, workerThreadslist);
+        simulationpanel = new DrawPanel(listoffood, possitionlist, workerfoodlist, workerThreadslist, stamina);
         simulationpanel.setSize(800,500);
         simulationpanel.setPreferredSize(new Dimension(800,500));
 
@@ -72,8 +74,12 @@ public class AppFrame extends JFrame{
         increasespeedofeating.setText("+");
         decreasespeedofeating.setText("-");
         increasespeedofeating.setBounds(10,10,10,10);
+        increasespeedofmoving = new JButton();
+        decreasespeedofmoving = new JButton();
         increasespeedofmoving.setText("+");
         decreasespeedofmoving.setText("-");
+        increasespeedofgettingresources = new JButton();
+        decreasespeedofgettingresources = new JButton();
         increasespeedofgettingresources.setText("+");
         decreasespeedofgettingresources.setText("-");
         parameterspanel.add(increasespeedofeating);
@@ -97,6 +103,6 @@ public class AppFrame extends JFrame{
     public void addworkerListener(ActionListener listenforaddworkerbutton){addworker.addActionListener(listenforaddworkerbutton);}
     public void removeanimallistener(ActionListener listenforremoveanimallbutton){removeanimal.addActionListener(listenforremoveanimallbutton);}
     public void addanimallistener(ActionListener listenforaddanimalbutton){addanimal.addActionListener(listenforaddanimalbutton);}
-    public void setIncreasespeedofeating(ActionListener listenforincreasespeedofeating){increasespeedofeating.addActionListener(listenforincreasespeedofeating);}
-    public void setDecreasespeedofeating(ActionListener listenfordecreasespeedofeating){decreasespeedofeating.addActionListener(listenfordecreasespeedofeating);}
+    public void increasespeedofeating(ActionListener listenforincreasespeedofeating){increasespeedofeating.addActionListener(listenforincreasespeedofeating);}
+    public void decreasespeedofeating(ActionListener listenfordecreasespeedofeating){decreasespeedofeating.addActionListener(listenfordecreasespeedofeating);}
 }

@@ -4,6 +4,7 @@ import threads.WorkerThread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DrawPanel extends JPanel {
@@ -11,11 +12,13 @@ public class DrawPanel extends JPanel {
     ArrayList<Integer> possitionlist;
     ArrayList<Integer> workerfoodlist;
     ArrayList<WorkerThread> workerThreadslist;
-    public DrawPanel(ArrayList listoffood, ArrayList<Integer> possitionlist, ArrayList<Integer> workerfoodlist, ArrayList<WorkerThread> workerThreadslist){
+    ArrayList<Integer> stamina;
+    public DrawPanel(ArrayList listoffood, ArrayList<Integer> possitionlist, ArrayList<Integer> workerfoodlist, ArrayList<WorkerThread> workerThreadslist, ArrayList<Integer> stamina){
         this.listoffood=listoffood;
         this.possitionlist = possitionlist;
         this.workerfoodlist=workerfoodlist;
         this.workerThreadslist=workerThreadslist;
+        this.stamina=stamina;
     }
     public void paint (Graphics G) {
         super.paint(G);
@@ -61,10 +64,11 @@ public class DrawPanel extends JPanel {
 
     public void paintwithcolorlines(Graphics2D G2D, int i){
         int k = listoffood.get(i);
-        int death=0;
 
-        if(death==0)
-            G2D.fillRect(146+i*50,90,20,20);
+        int s = stamina.get(i);
+        G2D.setColor(Color.RED);
+        G2D.fillRect(146+i*50,110,20,-s*2);
+        G2D.setColor(Color.BLACK);
 
         G2D.drawLine(146+i*50,90,165+i*50,90);
         G2D.drawLine(146+i*50,90,146+i*50,110);
@@ -106,6 +110,8 @@ public class DrawPanel extends JPanel {
             G2D.setColor(Color.BLACK);
             return;
         }
+        G2D.setColor(Color.WHITE);
         paintwithlines(G2D, i);
+        G2D.setColor(Color.BLACK);
     }
 }

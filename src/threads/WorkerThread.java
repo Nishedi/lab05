@@ -1,5 +1,7 @@
 package threads;
 
+import controller.Storage;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,14 +15,17 @@ public class WorkerThread extends Thread {
     int isrunning;
     int possition;
     int direction; // -1 left, 1 - right
-    Integer flagofacces;
+    //Integer flagofacces;
+    Storage storageacces;
 
     public int state; // 1 - moving - green, 2 - feeding - blue, 3 - trying to get food source - yellow, 4 - while getting food from source - red
     Random rand = new Random();
-    public WorkerThread(ArrayList<Integer> whichlist, ArrayList<Integer> possitionslist, int number, Integer flage){
-        this.flagofacces = flage;
+    public WorkerThread(ArrayList<Integer> whichlist, ArrayList<Integer> possitionslist, int number, Storage storageacces){
+        //this.flagofacces = flage;
+        this.storageacces=storageacces;
         this.storage = 100;
         this.whichlist=whichlist;
+        this.state=1;
         this.number=number;
         this.possitionslist=possitionslist;
         isrunning=1;
@@ -35,7 +40,7 @@ public class WorkerThread extends Thread {
         while(isrunning==1){
                 if (possition >= 0 && possition <= possitionslist.size() - 1) {
                     Integer statusoffood = whichlist.get(possition);
-                    if (statusoffood < 50 && statusoffood > 0) {
+                    if (statusoffood < 50 && statusoffood >= 0) {
                         state = 2;
                         int need = 100 - statusoffood;
                         whichlist.set(possition, statusoffood + Math.min(need, storage));
@@ -64,7 +69,7 @@ public class WorkerThread extends Thread {
 
     void getFoodFromStorage(){
         state = 3;
-        synchronized (flagofacces) {
+        synchronized (storageacces) {
             state = 4;
             try {
                 sleep(10000);
