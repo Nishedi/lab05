@@ -1,13 +1,20 @@
 package controller;
 
-import javax.swing.*;
-
 public class Parameters {
     public int speedofeating=5;
     public int speedofmoving=5;
-    public int speedofgettingresources=5;
+    public int speedoffeeding =5;
+    public int speedofgettingresource=5;
 
-
+    public void increasespeedofgettingresource(){
+        if(speedofgettingresource<=15) {
+            speedofgettingresource++;
+        }
+    }
+    public void decreasespeedofgettingresource(){
+        if(speedofgettingresource>=1)
+            speedofgettingresource--;
+    }
     public void increasespeedofeating(){
         if(speedofeating<=10)
             speedofeating++;
@@ -25,12 +32,12 @@ public class Parameters {
         if(speedofmoving>=1)
             speedofmoving--;
     }
-    public void increasespeedofgettingresources(){
-        if(speedofgettingresources<=10)
-            speedofgettingresources++;
+    public void increasespeedoffeeding(){
+        if(speedoffeeding <=10)
+            speedoffeeding++;
     }
-    public void decreasespeedofgettingresources(){
-        if(speedofgettingresources>=1)
-            speedofgettingresources--;
+    public void decreasespeedoffeeding(){
+        if(speedoffeeding >=1)
+            speedoffeeding--;
     }
 }

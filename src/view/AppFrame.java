@@ -1,9 +1,10 @@
 package view;
 
+import controller.Movement;
+import controller.Sensors;
+import controller.Storage;
 import threads.WorkerThread;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,27 +18,25 @@ public class AppFrame extends JFrame{
     public JButton addworker;
     public JButton removeanimal;
     public JButton addanimal;
-
-    public JList list;
-    public JButton butn;
     public JButton increasespeedofeating;
     public JButton decreasespeedofeating;
     public JButton increasespeedofmoving;
     public JButton decreasespeedofmoving;
-    public JButton increasespeedofgettingresources;
-    public JButton decreasespeedofgettingresources;
-    ArrayList<Integer> listoffood;
-    ArrayList<Integer> possitionlist;
-    ArrayList<Integer> workerfoodlist;
+    public JButton increasespeedoffeeding;
+    public JButton decreasespeedoffeeding;
+    public JButton increasespeedofgettingfood;
+    public JButton decreasespeedofgettingfood;
     public ArrayList<WorkerThread> workerThreadslist;
-    ArrayList<Integer> stamina;
 
-    public AppFrame(ArrayList<Integer> listoffood, ArrayList<Integer> possitionlist, ArrayList<Integer> workerfoodlist, ArrayList<WorkerThread> workerThreadslist, ArrayList<Integer> stamina){
-        this.listoffood = listoffood;
-        this.possitionlist = possitionlist;
-        this.workerfoodlist = workerfoodlist;
+    Sensors sensors;
+    public Storage storage;
+    Movement movement;
+
+    public AppFrame(ArrayList<WorkerThread> workerThreadslist, Sensors sensors, Movement movement){
+        this.movement=movement;
         this.workerThreadslist=workerThreadslist;
-        this.stamina=stamina;
+        this.sensors=sensors;
+        storage=new Storage();
         editpanel = new JPanel();
         removeworker=new JButton();
         removeworker.setText("removeworker");
@@ -52,23 +51,16 @@ public class AppFrame extends JFrame{
         editpanel.add(removeanimal);
         editpanel.add(addanimal);
 
-
-
-        //list=new JList<>();
-        butn = new JButton();
-
-        simulationpanel = new DrawPanel(listoffood, possitionlist, workerfoodlist, workerThreadslist, stamina);
+        simulationpanel = new DrawPanel(workerThreadslist, storage, sensors, movement);
         simulationpanel.setSize(800,500);
         simulationpanel.setPreferredSize(new Dimension(800,500));
 
-
-        parameterspanel =new JPanel();
+        parameterspanel = new DrawSpeeds();
         editpanel.setBackground(Color.ORANGE);
         simulationpanel.setBackground(Color.cyan);
-        parameterspanel.setBackground(Color.green);
-        parameterspanel.setPreferredSize(new Dimension(500,50));
-       // parameterspanel.add(list);
 
+        parameterspanel.setBackground(Color.green);
+        parameterspanel.setPreferredSize(new Dimension(500,100));
         increasespeedofeating = new JButton();
         decreasespeedofeating = new JButton();
         increasespeedofeating.setText("+");
@@ -78,18 +70,22 @@ public class AppFrame extends JFrame{
         decreasespeedofmoving = new JButton();
         increasespeedofmoving.setText("+");
         decreasespeedofmoving.setText("-");
-        increasespeedofgettingresources = new JButton();
-        decreasespeedofgettingresources = new JButton();
-        increasespeedofgettingresources.setText("+");
-        decreasespeedofgettingresources.setText("-");
+        increasespeedoffeeding = new JButton();
+        decreasespeedoffeeding = new JButton();
+        increasespeedoffeeding.setText("+");
+        decreasespeedoffeeding.setText("-");
+        increasespeedofgettingfood=new JButton();
+        decreasespeedofgettingfood=new JButton();
+        increasespeedofgettingfood.setText("+");
+        decreasespeedofgettingfood.setText("-");
         parameterspanel.add(increasespeedofeating);
         parameterspanel.add(decreasespeedofeating);
         parameterspanel.add(increasespeedofmoving);
         parameterspanel.add(decreasespeedofmoving);
-        parameterspanel.add(increasespeedofgettingresources);
-
-
-
+        parameterspanel.add(increasespeedoffeeding);
+        parameterspanel.add(decreasespeedoffeeding);
+        parameterspanel.add(increasespeedofgettingfood);
+        parameterspanel.add(decreasespeedofgettingfood);
 
         this.add(editpanel, BorderLayout.NORTH);
         this.add(simulationpanel, BorderLayout.CENTER);
@@ -105,4 +101,11 @@ public class AppFrame extends JFrame{
     public void addanimallistener(ActionListener listenforaddanimalbutton){addanimal.addActionListener(listenforaddanimalbutton);}
     public void increasespeedofeating(ActionListener listenforincreasespeedofeating){increasespeedofeating.addActionListener(listenforincreasespeedofeating);}
     public void decreasespeedofeating(ActionListener listenfordecreasespeedofeating){decreasespeedofeating.addActionListener(listenfordecreasespeedofeating);}
+    public void increasespeedofmoving(ActionListener listenforincreasespeedofmoving){increasespeedofmoving.addActionListener(listenforincreasespeedofmoving);}
+    public void decreasespeedofmoving(ActionListener listenfordecreasespeedofmoving){decreasespeedofmoving.addActionListener(listenfordecreasespeedofmoving);}
+    public void increasespeedoffeeding(ActionListener listenforincreasesoffeeding){increasespeedoffeeding.addActionListener(listenforincreasesoffeeding);}
+    public void decreasespeedoffeeding(ActionListener listenfordecreaseoffeeding){decreasespeedoffeeding.addActionListener(listenfordecreaseoffeeding);}
+    public void increasespeedofgettingfood(ActionListener listenforincreasespeedofgettingfood){increasespeedofgettingfood.addActionListener(listenforincreasespeedofgettingfood);}
+    public void decreasespeedofgettingfood(ActionListener listenfordecreasespeedofgettingfood){decreasespeedofgettingfood.addActionListener(listenfordecreasespeedofgettingfood);}
+
 }
